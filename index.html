@@ -1,0 +1,99 @@
+<div id="screen">
+    <h1>Weirdle</h1>
+    <h2>Wordle, but with words you don't know</h2>
+    <h4>Based upon <a href="https://www.powerlanguage.co.uk/wordle/">Wordle</a> and <a href="https://gist.github.com/gaearon/deb61c3f10a9319c348987acc0435ff9">gaearon's implementation</a></h4>
+    <div id="grid"></div>
+    <div id="keyboard"></div>
+  </div>
+  <style>
+    body, html {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    body, html, #screen {
+      height: 100vh;
+      width: 100%;
+    }
+    #screen {
+      display: flex;
+      flex-direction: column;
+    }
+    h1 {
+      font-size: 42px;
+      flex: none;
+    }
+    #grid {
+      flex: 1 1 auto;
+    }
+    .button {
+      text-transform: uppercase;
+      padding: 15px;
+      margin: 3px;
+      border-radius: 5px;
+      height: 60px;
+      border: none;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+    }
+    #keyboard {
+      flex: none;
+      padding: 20px;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      display: inline-block;
+      margin: 4px;
+      padding: 6px;
+      font-size: 40px;
+      font-weight: bold;
+      perspective: 1000px;
+    }
+    .cell .front, .cell .back {
+      border: 2px solid #444;
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .cell.solved .surface {
+      transform: rotateX(180deg);
+    }
+    .cell .surface {
+      transition-duration: 800ms;
+      transform-style: preserve-3d;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .cell .front {
+      z-index: 2;
+    }
+    .cell .back {
+      z-index: 1;
+      transform: rotateX(180deg);
+    }
+    @keyframes press {
+      from {
+        opacity: 0.5;
+        transform: scale(0.95);
+      }
+      50% {
+        opacity: 0.85;
+        transform: scale(1.1);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  
+  </style>
+  <script src="index.js"></script>
